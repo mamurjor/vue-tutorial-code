@@ -1,10 +1,11 @@
 <template>
-  <h1>{{  data}}</h1>
-  <h1>Allah </h1>
+    <button @click="getcatlist">show</button>
+    <p> {{ data }}</p>
 </template>
 
-
 <script>
+
+import axios from 'axios';
 
 export default{
     data(){
@@ -13,12 +14,11 @@ export default{
         }
     },
     methods:{
-        async fetchdata(){
-            const respnse = await fetch("https://jsonplaceholder.typicode.com/todos/1")
+        async getcatlist(){
+          
 
-            this.data = await respnse.json();
+           this.data = await axios.get("http://127.0.0.1:8000/api/PostCategories");
         }
     }
 }
-
 </script>
