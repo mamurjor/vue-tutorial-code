@@ -8,8 +8,12 @@
 						<div class="col-lg-6 col-md-5 col-12">
 
 						
-							<slot name="topmenu"></slot>
-							<!-- {{ mytopmenu }} -->
+						
+							<ul class="top-link">
+
+								<li > <router-link>About </router-link> </li>
+
+								</ul>
 							<!-- Contact -->
 							<!-- <ul class="top-link">
 
@@ -18,7 +22,7 @@
 							</ul> -->
 							<!-- End Contact -->
 						</div>
-						<slot name="contactsection" :lclData="data"></slot>
+						
 					</div>
 				</div>
 			</div>
@@ -69,6 +73,25 @@ export default{
 			data: 'This is local data',
 			cell:"01746686868",
 			email:"mamurjorbd@gmail.com",
+			mytopmenu:[
+				{
+					name:"about",
+					url:"about"
+				},
+				{
+					name:"Doctors",
+					url:"Doctors"
+				},
+
+				{
+					name:"Contact",
+					url:"Contact"
+				},
+				{
+					name:"FAQ",
+					url:"FAQ"
+				},
+			]
 			
 		}
 	}

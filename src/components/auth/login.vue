@@ -1,15 +1,32 @@
 <template>
     <h1>Login Form </h1>
 
-    <!-- {{ data }} -->
+   
 
-    <button @click="login">Login </button>
+
     
-   your User Name :  {{ username }}
-   <p>{{ token }}</p>
 
+  <div class="container">
+    <h1>Login  {{ data }} </h1>
+   
+   
+    <hr>
 
-   <button @click="logout"> Logout </button>
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" v-model="logininfo.email" id="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" v-model="logininfo.password"  name="psw" id="psw" required>
+
+ 
+    <button @click="login"  class="registerbtn">Login </button>
+    
+  </div>
+  
+  <div class="container signin">
+    <p>Already have an account? <a href="#">Sign in</a>.</p>
+  </div>
+
 </template>
 
 
@@ -22,10 +39,11 @@ export default{
         return {
             data:null,
             token:"",
+            check:"",
             username:"",
             logininfo:{
-                email:"hadijaman@gmail.com",
-                password:"12345678"
+                email:"",
+                password:""
             }
         }
     },
@@ -33,19 +51,38 @@ export default{
         async login(){
           
 
-           this.data = await axios.post("http://127.0.0.1:8000/api/mamulogin",this.logininfo);
-        //     //window.localStorage.setItem(key,value)
-        //     localStorage.setItem("usertoken",this.data.data.data.token)
-        //     // localStorage.getItem()
-        //     // localStorage.removeItem()
-        //     // localStorage.length
-        //     // localStorage.clear()
-        //    this.token= localStorage.getItem("usertoken");
-    
-        sessionStorage.setItem("token",this.data.data.data.token);
-        sessionStorage.setItem("username",this.data.data.data.name);
-        this.username=sessionStorage.getItem("username");
-        this.token=sessionStorage.getItem("token");
+        await axios.post(this.$baseurl+"mamulogin",this.logininfo).then(
+            response =>{
+
+                if(response.data.success==true){
+          
+
+          sessionStorage.setItem("login",response.data.success);
+       sessionStorage.setItem("token",response.data.data.token);
+
+      
+       //sessionStorage.setItem("username",this.data.data);
+       //this.username=sessionStorage.getItem("username");
+     
+          this.$router.push("/dashboard");
+       }
+       else{
+          this.data = response.data.message.error;
+       }
+            }
+         ).catch(
+            error => {
+                this.data=error;
+            }
+         );
+            
+         
+         
+          
+
+       
+      
+     
         },
 
         async logout(){

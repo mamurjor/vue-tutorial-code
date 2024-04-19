@@ -19,7 +19,6 @@
   <template v-slot:topmenu>
     <ul class="top-link" >
 
-<li v-for="mysinglemenu in mytopmenu"> <a :href="mysinglemenu.url"> {{ mysinglemenu.name }} </a></li>
 
 </ul>
   </template>
